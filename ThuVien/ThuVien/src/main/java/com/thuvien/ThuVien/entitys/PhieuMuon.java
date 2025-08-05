@@ -22,13 +22,13 @@ public class PhieuMuon {
     @JoinColumn(name = "member_id")
     private Members member;
 
-    @JoinColumn(name = "create_date")
+    @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @JoinColumn(name = "return_date")
+    @Column(name = "return_date")
     private LocalDateTime returnDate;
 
-    @JoinColumn(name = "actual_return")
+    @Column(name = "actual_return")
     private LocalDateTime actualReturn;
 
     @OneToMany(mappedBy = "phieuMuon", cascade = CascadeType.ALL)

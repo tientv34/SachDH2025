@@ -23,6 +23,6 @@ public class ChiTietPhieuMuon {
     @JoinColumn(name = "book_id")
     private Books book;
 
-    @JoinColumn(name = "quantity")
+    @Column(name = "quantity")
     private Integer quantity;
 }

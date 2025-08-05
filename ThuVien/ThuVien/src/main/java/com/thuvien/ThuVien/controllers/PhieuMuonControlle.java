@@ -1,4 +1,56 @@
 package com.thuvien.ThuVien.controllers;
 
+import com.thuvien.ThuVien.entitys.PhieuMuon;
+import com.thuvien.ThuVien.model.request.PhieuMuonRequest;
+import com.thuvien.ThuVien.model.response.ResponseObject;
+import com.thuvien.ThuVien.services.PhieuMuonServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/api/phieumuon")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class PhieuMuonControlle {
+
+    @Autowired
+    public PhieuMuonServices phieuMuonServices;
+
+    @GetMapping("/")
+    public ResponseEntity<ResponseObject> getListPhieu(@RequestBody PhieuMuonRequest phieuMuonRequest){
+        List<PhieuMuon> lstPhieuMuon = new ArrayList<>();
+
+        if(!phieuMuonRequest.getIdMember().isEmpty()){
+
+        }
+
+
+
+
+        if(!lstPhieuMuon.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(ResponseObject.builder()
+                            .status("OK")
+                            .message("Select all Phieu muon OK")
+                            .data(lstPhieuMuon)
+                            .build());
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)  // hoặc BAD_REQUEST/NOT_FOUND tuỳ
+                    .body(ResponseObject.builder()
+                            .status("ERROR")
+                            .message("Select Phieu Muon thất bại.")
+                            .data(null)
+                            .build());
+        }
+    }
 }
