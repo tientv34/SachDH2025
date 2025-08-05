@@ -35,6 +35,6 @@ public class Books {
     private String isbn;
 
     @Column(name = "soLuong")
-    private String soLuong;
+    private Integer soLuong;
 
 }

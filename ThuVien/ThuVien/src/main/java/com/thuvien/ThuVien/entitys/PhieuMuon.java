@@ -31,6 +31,9 @@ public class PhieuMuon {
     @Column(name = "actual_return")
     private LocalDateTime actualReturn;
 
+    @Column(name = "status")
+    private String status;
+
     @OneToMany(mappedBy = "phieuMuon", cascade = CascadeType.ALL)
     private List<ChiTietPhieuMuon> lstChiTietPhieuMuon;
 }

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +23,14 @@ public class PhieuMuonControlle {
 
     @GetMapping("/")
     public ResponseEntity<ResponseObject> getListPhieu(@RequestBody PhieuMuonRequest phieuMuonRequest){
-        List<PhieuMuon> lstPhieuMuon = new ArrayList<>();
-
-        if(!phieuMuonRequest.getIdMember().isEmpty()){
-
-        }
-
-
-
-
-        if(!lstPhieuMuon.isEmpty()){
+        List<PhieuMuon> lst = phieuMuonServices.getAllListPhieu(phieuMuonRequest);
+        if(!lst.isEmpty()){
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(ResponseObject.builder()
                             .status("OK")
                             .message("Select all Phieu muon OK")
-                            .data(lstPhieuMuon)
+                            .data(lst)
                             .build());
         }else{
             return ResponseEntity
@@ -49,6 +38,52 @@ public class PhieuMuonControlle {
                     .body(ResponseObject.builder()
                             .status("ERROR")
                             .message("Select Phieu Muon thất bại.")
+                            .data(null)
+                            .build());
+        }
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ResponseObject> createPhieuMuon (@RequestBody PhieuMuonRequest phieuMuonRequest){
+        PhieuMuon phieuMuon = phieuMuonServices.createPhieuMuon(phieuMuonRequest);
+        if(phieuMuon != null){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(ResponseObject.builder()
+                            .status("OK")
+                            .message("Tao Phieu Thanh Cong")
+                            .data(phieuMuon)
+                            .build());
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)  // hoặc BAD_REQUEST/NOT_FOUND tuỳ
+                    .body(ResponseObject.builder()
+                            .status("ERROR")
+                            .message("Tao Phieu That Bai")
+                            .data(null)
+                            .build());
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseObject> updatePhieuMuon (@PathVariable String id,
+                                                           @RequestParam(name = "status") String status){
+        PhieuMuon phieuMuon = phieuMuonServices.updatePhieuMuon(id, status);
+
+        if(phieuMuon != null){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(ResponseObject.builder()
+                            .status("OK")
+                            .message("Update Phieu Thanh Cong")
+                            .data(phieuMuon)
+                            .build());
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)  // hoặc BAD_REQUEST/NOT_FOUND tuỳ
+                    .body(ResponseObject.builder()
+                            .status("ERROR")
+                            .message("Update Phieu That Bai")
                             .data(null)
                             .build());
         }
