@@ -11,4 +11,5 @@ public class ChiTietPhieuMuonRequest {
     private String idPhieuMuon;
     private String idBook;
     private Integer quantity;
+    private String status;
 }

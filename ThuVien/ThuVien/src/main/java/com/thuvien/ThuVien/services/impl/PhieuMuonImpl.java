@@ -71,9 +71,10 @@ public class PhieuMuonImpl implements PhieuMuonServices {
 
         phieuMuonEntity.setCreateDate(LocalDateTime.now());
         phieuMuonEntity.setReturnDate(null);
-        phieuMuonEntity.setStatus("1");
+        phieuMuonEntity.setStatus("0");
         phieuMuonEntity.setMember(member);
         phieuMuonEntity.setActualReturn(phieumuon.getEndDate());
+        phieuMuonEntity.setLoaiPhieu(phieumuon.getLoaiPhieu());
 
         PhieuMuon phieuMuonSave = phieuMuonRepository.save(phieuMuonEntity);
 
@@ -84,6 +85,7 @@ public class PhieuMuonImpl implements PhieuMuonServices {
             ChiTietPhieuMuon chiTiet = new ChiTietPhieuMuon();
             chiTiet.setPhieuMuon(phieuMuonSave);
             chiTiet.setBook(bookEntity);
+            chiTiet.setStatus(phieuMuonSave.getStatus());
 
             if(chiTietPM.getQuantity() <= bookEntity.getSoLuong()){
                 chiTiet.setQuantity(chiTietPM.getQuantity());
@@ -124,6 +126,10 @@ public class PhieuMuonImpl implements PhieuMuonServices {
 
             if(phieuMuon.getEndDate() != null){
                 predicates.add(cb.equal(root.get("returnDate"), phieuMuon.getEndDate()));
+            }
+
+            if(phieuMuon.getLoaiPhieu() != null){
+                predicates.add(cb.equal(root.get("returnDate"), phieuMuon.getLoaiPhieu()));
             }
 
             if(phieuMuon.getStatus() != null){

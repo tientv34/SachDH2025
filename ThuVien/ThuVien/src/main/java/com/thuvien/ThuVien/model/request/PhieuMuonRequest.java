@@ -16,6 +16,7 @@ public class PhieuMuonRequest {
     private String idMember;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private String loaiPhieu;
     private String status;
     private List<ChiTietPhieuMuonRequest> lstChiTietPhieuMuon;
 }

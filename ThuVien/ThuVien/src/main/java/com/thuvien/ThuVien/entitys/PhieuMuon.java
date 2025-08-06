@@ -34,6 +34,9 @@ public class PhieuMuon {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "loaiphieu")
+    private String loaiPhieu;
+
     @OneToMany(mappedBy = "phieuMuon", cascade = CascadeType.ALL)
     private List<ChiTietPhieuMuon> lstChiTietPhieuMuon;
 }
